@@ -13,16 +13,20 @@ let milDec = document.getElementById('milDec');
 let milUni = document.getElementById('milUni');
 let splits = document.getElementById('splits');
 
-function printTime() {
-  // ... your code goes here
+function printTime() {  
+  minDec.innerText = printMinutes()[0]
+  minUni.innerText = printMinutes()[1]
+  secDec.innerText = printSeconds()[0]
+  secUni.innerText = printSeconds()[1]
+  splits.innerText = printSplit();
 }
 
 function printMinutes() {
-  // ... your code goes here
+  return chronometer.twoDigitsNumber(chronometer.getMinutes());
 }
 
 function printSeconds() {
-  // ... your code goes here
+  return chronometer.twoDigitsNumber(chronometer.getSeconds());
 }
 
 // ==> BONUS
@@ -31,35 +35,58 @@ function printMilliseconds() {
 }
 
 function printSplit() {
-  // ... your code goes here
+  return chronometer.splitClick()
 }
 
 function clearSplits() {
-  // ... your code goes here
+  splits.innerText = '';
 }
 
 function setStopBtn() {
-  // ... your code goes here
+  btnLeft.innerText = 'STOP';
+  btnLeft.classList.remove('start');
+  btnLeft.classList.add('stop');
 }
 
 function setSplitBtn() {
-  // ... your code goes here
+  btnRight.innerText = 'SPLIT';
+  btnRight.classList.remove('reset');
+  btnRight.classList.add('split');
 }
 
 function setStartBtn() {
-  // ... your code goes here
+  btnLeft.innerText = 'START';
+  btnLeft.classList.remove('stop');
+  btnLeft.classList.add('start');
 }
 
 function setResetBtn() {
-  // ... your code goes here
+  btnRight.innerText = 'RESET';
+  btnRight.classList.remove('split');
+  btnRight.classList.add('reset');
 }
 
 // Start/Stop Button
 btnLeft.addEventListener('click', () => {
-  // ... your code goes here
+  if(btnLeft.innerText === 'START'){
+    setStopBtn();
+    setSplitBtn();
+    chronometer.startClick(printTime);
+  
+  } else {
+    setStartBtn();
+    setResetBtn();
+    chronometer.stopClick();
+  }
 });
 
 // Reset/Split Button
 btnRight.addEventListener('click', () => {
-  // ... your code goes here
+  if(btnRight === 'RESET'){
+    setSplitBtn();
+    printSplit();
+  } else {
+    setResetBtn();
+    clearSplits();
+  }
 });
