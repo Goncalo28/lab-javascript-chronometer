@@ -5,9 +5,11 @@ class Chronometer {
   }
   startClick(callback) {
     this.intervalId = setInterval(() => {
-      this.currentTime++
-      callback()
-      , 1000});
+      this.currentTime++;
+      if(callback){
+        callback();
+      }
+      }, 1000);
     }
   getMinutes() {
     let minutes = Math.floor(this.currentTime / 60);
